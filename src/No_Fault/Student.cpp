@@ -1,22 +1,10 @@
-#include "Student.h"
+#include "Student.hpp"
 
 #include <iostream>
 
-using std::cin;
-using std::cout;
+using namespace std;
 
-Student::Student(std::string name, std::string id, std::string email,
-                 double grade_presentation, double grade_essay,
-                 double grade_project) {
-  name_ = name;
-  id_ = id;
-  email_ = email;
-  grade_presentation_ = grade_presentation;
-  grade_essay_ = grade_essay;
-  grade_project_ = grade_project;
-}
-
-std::string Student::verify_input(std::string keyword, std::string input) {
+string Student::verify_input(string keyword, string input) {
   if (keyword == "name" || keyword == "email") {
     if (input.length() > 0 && input.length() <= 40) {
       return input;
@@ -32,7 +20,7 @@ std::string Student::verify_input(std::string keyword, std::string input) {
       cout << "Student's ID should have 10 characters.";
     }
   } else {
-    if (std::stoi(input) >= 0 && std::stoi(input) <= 4) {
+    if (stoi(input) >= 0 && stoi(input) <= 4) {
       return input;
     } else {
       cout << "Grade should be from 0(F) to 4(A).";
@@ -42,7 +30,7 @@ std::string Student::verify_input(std::string keyword, std::string input) {
   return "";
 }
 
-bool Student::update_info(std::string keyword, std::string updated_info) {
+bool Student::update_info(string keyword, string updated_info) {
   updated_info = verify_input(keyword, updated_info);
   while (updated_info == "") {
     cout << "Please try again.";
@@ -55,11 +43,13 @@ bool Student::update_info(std::string keyword, std::string updated_info) {
     } else if (keyword == "email") {
       email_ = updated_info;
     } else if (keyword == "grade_presentation") {
-      grade_presentation_ = std::stoi(updated_info);
+      grade_presentation_ = stoi(updated_info);
     } else if (keyword == "grade_essay") {
-      grade_essay_ = std::stoi(updated_info);
+      grade_essay_ = stoi(updated_info);
     } else if (keyword == "grade_project") {
-      grade_project_ = std::stoi(updated_info);
+      grade_project_ = stoi(updated_info);
     }
   }
+
+  return true;
 }
