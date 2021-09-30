@@ -4,6 +4,13 @@
 #include <iostream>
 #include <sstream>
 
+
+/*
+  This function opens and reads the file line by line.
+  It also checks to make sure if there are exactly 5 inputs per line.
+  Afterwards it creates a vector a pushes back the inputs into the row.
+  The row is then incremented to the next row so we can write more data
+*/
 bool readFile(vector<Student>& students, string fileName) {
   ifstream fin;
 
@@ -41,6 +48,12 @@ bool readFile(vector<Student>& students, string fileName) {
 
   return true;
 }
+
+
+/*
+  This function writes into the file everything that is in the vector
+  with comma spereated delimiters.
+*/
 
 bool writeFile(vector<Student>& students, string fileName) {
   ofstream fout;

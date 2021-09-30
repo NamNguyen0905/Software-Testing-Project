@@ -6,6 +6,12 @@
 
 using namespace std;
 
+/*
+  Includes the variables for Student,
+  and the functions that deal with getting information, 
+  finding information, and verifying if information is correct
+*/
+
 class Student {
  private:
   string name_;
@@ -53,9 +59,6 @@ class Student {
          << "Grade Essay: " << to_string(grade_essay_) << endl
          << "Grade Project: " << to_string(grade_project_) << endl;
   }
-
-  string verify_input(string keyword, string input);
-  bool update_info(string keyword, string updated_info);
 };
 
 #endif

@@ -1,7 +1,10 @@
 #include "studentManager.hpp"
-
+#include "validation.hpp"
 #include "helper.hpp"
 
+/*
+  Menu for updating info
+*/
 void update_menu() {
   cout << "0. View updated info" << endl;
   cout << "1. Update name" << endl;
@@ -13,33 +16,93 @@ void update_menu() {
   cout << "7. Done." << endl << endl;
 }
 
+// function that adds a student based off user input
 bool add_student(vector<Student>& students) {
   string name, id, email;
   int grade_presentation, grade_essay, grade_project;
-
+  //while() for each
   cout << "Enter student's info:\n";
-  cout << "Name: ";
-  getline(cin, name);
-  cout << "UID: ";
-  cin >> id;
-  cout << "Email: ";
-  cin >> email;
-  cout << "Grade presentation: ";
-  cin >> grade_presentation;
-  cout << "Grade essay: ";
-  cin >> grade_essay;
-  cout << "Grade project: ";
-  cin >> grade_project;
+  while(true){
+    cout << "Name: ";
+    getline(cin, name);
+    if (validateName(name) == false){
+      cout << "Invalid Name" << endl;
+      cout << "Please try again" << endl;
+    }
+    else{
+      break;
+    }
+  }
+
+  while(true){
+    cout << "UID: ";
+    getline(cin, id);
+    if (validateID(id) == false){
+      cout << "Invalid UID" << endl;
+      cout << "Please try again" << endl;
+    }
+    else if (duplicateID(students, id) == false){
+      break;
+    }
+  }
+  while(true){
+    cout << "Email: ";
+    getline(cin, email);
+    if (validateEmail(email) == false){
+      cout << "Invalid Email" << endl;
+      cout << "Please try again" << endl;
+    }
+    else{
+      if(duplicateEmail(students, email) == false){
+        break;
+      }
+    }
+  }
+  while(true){
+    cout << "Grade Presentation: ";
+    cin >> grade_presentation;
+    if (validateGrade(grade_presentation) == false){
+      cout << "Invalid grade entered" << endl;
+      cout << "Please try again" << endl;
+    }
+    else{
+      break;
+    }
+  }
+  while(true){
+    cout << "Grade Essay: ";
+    cin >> grade_essay;
+    if (validateGrade(grade_essay) == false){
+      cout << "Invalid grade entered" << endl;
+      cout << "Please try again" << endl;
+    }
+    else{
+      break;
+    }
+  }
+  while(true){
+    cout << "Grade Project: ";
+    cin >> grade_project;
+    if (validateGrade(grade_project) == false){
+      cout << "Invalid grade entered" << endl;
+      cout << "Please try again" << endl;
+    }
+    else{
+      break;
+    }
+  }
 
   Student new_student(name, id, email, grade_presentation, grade_essay,
-                      grade_project);
-  students.push_back(new_student);
+                      grade_project); // makes a new student
+  students.push_back(new_student); 
 
   cout << "Added successfully!" << endl << endl;
 
   return true;
 }
 
+// deletes a student from the vector and csv
+// Searches for student by UID
 bool delete_student(vector<Student>& students) {
   string delete_id;
 
@@ -57,6 +120,8 @@ bool delete_student(vector<Student>& students) {
   }
 }
 
+// Updates student info through their UID
+// Gives the option to enter new information 1 at a time
 bool update_student(vector<Student>& students) {
   string update_id;
 
@@ -89,49 +154,108 @@ bool update_student(vector<Student>& students) {
         }
         case 1: {
           string new_name;
-          cout << "Enter a new name: ";
           cin.ignore();
-          getline(cin, new_name);
+          while(true){
+            cout << "Enter a new name: ";
+            getline(cin, new_name);
+            if (validateName(new_name) == false){
+              cout << "Invalid Name" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              break;
+            }
+        }
+
 
           students[idx].set_name(new_name);
           break;
         }
         case 2: {
           string new_id;
-          cout << "Enter a new uid: ";
-          cin >> new_id;
-
+          while(true){
+            cout << "Enter a new UID: ";
+            cin >> new_id;
+            if (validateID(new_id) == false){
+              cout << "Invalid UID" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              if(duplicateID(students, new_id) == false){
+                break;
+              }
+            }
+          }
+          
           students[idx].set_id(new_id);
           break;
         }
         case 3: {
           string new_email;
-          cout << "Enter a new email: ";
-          cin >> new_email;
+          while(true){
+            cout << "Enter a new email: ";
+            cin >> new_email;
+            if (validateEmail(new_email) == false){
+              cout << "Invalid Email" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              if(duplicateEmail(students, new_email) == false){
+                break;
+              }
+            }
+          }
 
           students[idx].set_email(new_email);
           break;
         }
         case 4: {
           int new_gradePresentation;
-          cout << "Enter a new presentation grade: ";
-          cin >> new_gradePresentation;
+          while(true){
+            cout << "Enter a new presentation grade: ";
+            cin >> new_gradePresentation;
+            if (validateGrade(new_gradePresentation) == false){
+              cout << "Invalid grade entered" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              break;
+            }
+          }
 
           students[idx].set_gradePresentation(new_gradePresentation);
           break;
         }
         case 5: {
           int new_gradeEssay;
-          cout << "Enter a new essay grade: ";
-          cin >> new_gradeEssay;
+          while(true){
+            cout << "Enter a new essay grade: ";
+            cin >> new_gradeEssay;
+            if (validateGrade(new_gradeEssay) == false){
+              cout << "Invalid grade entered" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              break;
+            }
+          }
 
           students[idx].set_gradeEssay(new_gradeEssay);
           break;
         }
         case 6: {
           int new_gradeProject;
-          cout << "Enter a new project grade: ";
-          cin >> new_gradeProject;
+          while(true){
+            cout << "Enter a new project grade: ";
+            cin >> new_gradeProject;
+            if (validateGrade(new_gradeProject) == false){
+              cout << "Invalid grade entered" << endl;
+              cout << "Please try again" << endl;
+            }
+            else{
+              break;
+            }
+          }
 
           students[idx].set_gradeProject(new_gradeProject);
           break;

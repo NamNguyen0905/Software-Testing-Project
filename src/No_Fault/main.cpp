@@ -9,8 +9,16 @@
 
 using namespace std;
 
-void menu();
+void menu(); // prints menu options
 
+
+
+/*
+  We open the csv file and read it,
+  The user is asked to make a choice from the menu options,
+  They can Add a student, Update Info, Delete a Student, or Get Info,
+  All these functions happen in studentManager.cpp
+*/
 int main() {
   vector<Student> students;
 
@@ -27,18 +35,18 @@ int main() {
     switch (choice) {
       case 1: {  // Add student
         cin.ignore();
-        add_student(students);
+        add_student(students); // function that adds student in studentManager.cpp
         break;
       }
       case 2: {  // Update info
-        update_student(students);
+        update_student(students); // Updates info for one specific student
         break;
       }
       case 3: {  // Delete student
-        delete_student(students);
+        delete_student(students); // Deletes a row of info from the csv
         break;
       }
-      case 4: {  // Get info
+      case 4: {  // Prints all info of the student with matching UID
         string uid;
         cout << "Enter the UID of the student you want to get info: ";
         cin >> uid;
@@ -56,13 +64,15 @@ int main() {
         writeFile(students, "students.csv");
         break;
       default:
-        cout << "Invalid option!! Please choose again." << endl;
+        cout << "Invalid option!! Please choose again." << endl; // if invalid input, asks for valid inpit
     }
   }
 
   return 0;
 }
-
+/*
+  Displays menu options
+*/
 void menu() {
   cout << "======================" << endl;
   cout << "1. Add student" << endl;
